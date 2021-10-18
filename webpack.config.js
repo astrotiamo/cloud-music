@@ -1,0 +1,1 @@
+externals: 'hls.js'

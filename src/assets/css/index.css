@@ -1,0 +1,84 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, '\5FAE\8F6F\96C5\9ED1', Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: 0.5s;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+.iconfont {
+  cursor: pointer;
+}
+
+.d-flex {
+  display: flex;
+}
+
+
+/* 播放器样式重置 */
+.aplayer {
+  margin: 0;
+  border-radius: 0;
+}
+
+.index-container .player {
+  height: auto;
+}
+
+.aplayer.aplayer-withlrc .aplayer-pic,
+.aplayer.aplayer-withlrc .aplayer-info {
+  height: 68px;
+}
+
+.aplayer.aplayer-withlrc .aplayer-lrc {
+  transform: translateY(-20px);
+}
+
+.aplayer .aplayer-lrc:after,
+.aplayer .aplayer-lrc:before {
+  content: none;
+}
+
+/* fixed：true第二次改动 */
+.aplayer .aplayer-pic {
+  width: 76px;
+}
+
+.aplayer.aplayer-fixed,
+.aplayer.aplayer-fixed .aplayer-body {
+  max-width: none !important;
+}
+
+.aplayer.aplayer-withlist .aplayer-info,
+.aplayer .aplayer-info {
+  width: calc(100vw - 66px);
+}
+
+.aplayer.aplayer-fixed .aplayer-lrc {
+  z-index: 999 !important;
+  transform: translateY(-14px);
+}
+
+.aplayer.aplayer-fixed .aplayer-miniswitcher {
+  display: none !important;
+}
+
+.aplayer .aplayer-list::-webkit-scrollbar {
+  width: 0 !important;
+}
