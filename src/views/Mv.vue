@@ -100,7 +100,24 @@
 
     <!-- 相关推荐区 -->
     <div class="recommend-wrap">
-
+      <h3 class="title">相关推荐</h3>
+      <div class="mvs">
+        <div class="item" v-for="(item, index) in similarMv" :key="index" @click="toMv(item.id)">
+          <div class="img-wrap">
+            <img v-lazy="item.cover">
+            <span class="iconfont icon-play"></span>
+            <div class="num-wrap">
+              <span class="iconfont icon-play"></span>
+              <div class="num">{{item.playCount | ellipsisPlayCount}}</div>
+            </div>
+            <span class="time">{{item.duration | formatDuration}}</span>
+          </div>
+          <div class="info-wrap">
+            <div class="name">{{item.name}}</div>
+            <div class="artistName">{{item.artistName}}</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -147,6 +164,7 @@ export default {
     this.fetchMvUrl(this.id)
     this.fetchMvDetail(this.id)
     this.fetchMvComment()
+    this.fetchSimilarMvInfo(this.id)
   },
   methods: {
     // 获取mv地址
@@ -204,7 +222,23 @@ export default {
     },
     // 获取相似mv数据
     async fetchSimilarMvInfo(id) {
-      
+      const res = await this.$http.get(`/simi/mv`, {
+        params: {
+          mvid: id
+        }
+      })
+      this.similarMv = res.data.mvs
+      console.log(this.similarMv);
+    },
+    // 点击类似mv重新渲染数据
+    toMv(id) {
+      this.$router.push(`/mv?id=${id}`)
+      this.id = id
+      this.commentQueryInfo.id = this.id
+      this.fetchMvUrl(this.id)
+      this.fetchMvDetail(this.id)
+      this.fetchMvComment()
+      this.fetchSimilarMvInfo(this.id)
     },
     // 监听页容量的改变
     sizeChange(newSize) {
@@ -329,5 +363,82 @@ export default {
 .mv-container .el-pagination {
   text-align: center;
   margin-top: 10px;
+  margin-bottom: 80px;
+}
+.mv-container .recommend-wrap {
+  flex: 1;
+}
+.mv-container .recommend-wrap .mvs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.mv-container .recommend-wrap .mvs .item {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+.mv-container .recommend-wrap .mvs .item:hover {
+  background-color: #f5f5f5;
+}
+.mv-container .recommend-wrap .mvs .item .img-wrap {
+  width: 180px;
+  position: relative;
+  margin-right: 10px;
+}
+.mv-container .recommend-wrap .mvs .item .img-wrap img {
+  width: 100%;
+  border-radius: 5px;
+}
+.mv-container .recommend-wrap .mvs .item .img-wrap>.icon-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #ee0000;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+}
+.mv-container .recommend-wrap .mvs .item .img-wrap:hover>.icon-play {
+  opacity: 1;
+}
+.mv-container .recommend-wrap .mvs .item .img-wrap .num-wrap {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2px;
+  padding-right: 5px;
+}
+.mv-container .recommend-wrap .mvs .item .img-wrap .num-wrap .icon-play {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+.mv-container .recommend-wrap .mvs .item .img-wrap .time {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: white;
+  font-size: 15px;
+}
+.mv-container .recommend-wrap .mvs .item .info-wrap {
+  flex: 1;
+}
+.mv-container .recommend-wrap .mvs .item .info-wrap .name {
+  font-size: 15px;
+}
+.mv-container .recommend-wrap .mvs .item .info-wrap .artistName {
+  font-size: 14px;
+  color: #c5c5c5;
 }
 </style>

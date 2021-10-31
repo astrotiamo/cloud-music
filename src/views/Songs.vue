@@ -232,6 +232,13 @@ export default {
 .songs-container .el-table .time {
   text-align: center;
 }
+.songs-container .el-table tr:nth-child(2n) {
+  background-color: #fafafa;
+}
+
+.songs-container .el-table tr:hover {
+  background-color: #f5f7fa;
+}
 .songs-container .el-pagination {
   margin-bottom: 80px;
   text-align: center;

@@ -7,6 +7,7 @@ const PlayList = () => import('../views/PlayList')
 const Songs = () => import('../views/Songs')
 const Mvs = () => import('../views/Mvs')
 const Mv = () => import('../views/Mv')
+const Result = () => import('../views/Result')
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,10 @@ const routes = [
   {
     path: '/mv',
     component: Mv
+  },
+  {
+    path: '/result',
+    component: Result
   },
 ]
 

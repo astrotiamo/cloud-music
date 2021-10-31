@@ -11,7 +11,7 @@ body, html {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  transition: 0.5s;
+  transition: 0.2s;
 }
 
 a {
@@ -29,7 +29,6 @@ ul, ol {
 .d-flex {
   display: flex;
 }
-
 
 /* 播放器样式重置 */
 .aplayer {

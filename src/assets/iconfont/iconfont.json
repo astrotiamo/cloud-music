@@ -13,11 +13,25 @@
       "unicode_decimal": 59098
     },
     {
+      "icon_id": "750883",
+      "name": "二维码",
+      "font_class": "erweima",
+      "unicode": "e7ad",
+      "unicode_decimal": 59309
+    },
+    {
       "icon_id": "2076196",
       "name": "赞",
       "font_class": "zan",
       "unicode": "e870",
       "unicode_decimal": 59504
+    },
+    {
+      "icon_id": "5387596",
+      "name": "箭头_左右切换",
+      "font_class": "jiantou_zuoyouqiehuan",
+      "unicode": "eb0d",
+      "unicode_decimal": 60173
     },
     {
       "icon_id": "7700769",
@@ -46,6 +60,13 @@
       "font_class": "circle-play",
       "unicode": "e8d8",
       "unicode_decimal": 59608
+    },
+    {
+      "icon_id": "13638720",
+      "name": "刷新1",
+      "font_class": "shuaxin",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
     },
     {
       "icon_id": "15838511",

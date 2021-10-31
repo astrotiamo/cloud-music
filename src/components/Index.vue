@@ -71,7 +71,6 @@ export default {
       hidePlayer: true,
       // 是否显示导航栏 nav
       hideNav: true,
-
       volume: 0.7,
       // 迷你模式
       mini: false,

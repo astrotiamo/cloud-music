@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id  */
-  src: url('iconfont.ttf?t=1634368010727') format('truetype');
+  src: url('iconfont.ttf?t=1635081916346') format('truetype');
 }
 
 .iconfont {
@@ -15,8 +15,16 @@
   content: "\e6da";
 }
 
+.icon-erweima:before {
+  content: "\e7ad";
+}
+
 .icon-zan:before {
   content: "\e870";
+}
+
+.icon-jiantou_zuoyouqiehuan:before {
+  content: "\eb0d";
 }
 
 .icon-findMusic:before {
@@ -33,6 +41,10 @@
 
 .icon-circle-play:before {
   content: "\e8d8";
+}
+
+.icon-shuaxin:before {
+  content: "\e65b";
 }
 
 .icon-play:before {

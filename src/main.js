@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import mixins from './utils/mixin'
 
+
 // 全局混入
 Vue.mixin(mixins)
 
@@ -18,6 +19,10 @@ Vue.use(VueLazyLoad, {
   // listenEvents: [ 'scroll' ]
 })
 
+// 导入md5
+import md5 from 'js-md5';
+Vue.prototype.$md5 = md5;
+
 //导入Aplayer
 // import APlayer from '@moefe/vue-aplayer'
 // Vue.use(APlayer)
@@ -26,6 +31,7 @@ Vue.use(VueLazyLoad, {
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
+Vue.prototype.$message = ElementUI.Message
 
 // 导入iconfont
 import './assets/css/index.css'
