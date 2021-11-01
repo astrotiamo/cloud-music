@@ -178,6 +178,9 @@ export default {
 .songs-container .el-table th {
   font-weight: normal;
 }
+.songs-container .el-table td {
+  border: none;
+}
 .songs-container .el-table th:first-child {
   width: 50px;
 }
@@ -189,6 +192,9 @@ export default {
 }
 .songs-container .el-table th:nth-child(4) {
   width: 200px;
+}
+.songs-container .el-table th:nth-child(5) {
+  width: 300px;
 }
 .songs-container .el-table .img-wrap {
   position: relative;

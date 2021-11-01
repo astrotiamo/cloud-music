@@ -153,7 +153,7 @@ export default {
             withCredentials: true
           }
         );
-        console.log(result1);
+        // console.log(result1);
         if (result1.data.code == 800) {
           this.qrShow = true;
           clearInterval(this.time)

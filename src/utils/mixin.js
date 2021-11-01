@@ -18,8 +18,9 @@ export default {
     },
     // 播放时间处理
     formatDuration(duration) {
-      let minute = Math.floor(duration / 1000 / 60).toString().padStart(2, '0')
-      let second = Math.floor(duration % 60).toString().padStart(2, '0')
+      let sec = duration / 1000
+      let minute = Math.floor(sec / 60).toString().padStart(2, '0')
+      let second = Math.floor(sec % 60).toString().padStart(2, '0')
       return minute + ':' + second
     }
   }

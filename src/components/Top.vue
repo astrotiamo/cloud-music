@@ -43,7 +43,7 @@
     <div class="right">
       <div class="login" @click="login" v-if="isAvatar">登录</div>
       <div class="avatar" v-else @mouseover="showUserInfo">
-        <img v-lazy="avatarUrl">
+        <img v-lazy="avatarUrl" />
         <span>{{ nickname }}</span>
 
         <!-- 用户信息 -->
@@ -104,7 +104,7 @@ export default {
       userInfoObj: {
         level: 0,
         listenSongs: null,
-        createDays: null,
+        createDays: null
       },
       // 输入提示
       placeholder: "",
@@ -130,7 +130,7 @@ export default {
   },
   created() {
     this.fetchDefaultKeywords();
-    this.isLogin()
+    this.isLogin();
   },
   methods: {
     // 前进/后退
@@ -153,12 +153,16 @@ export default {
     // 判断用户是否登录
     isLogin() {
       console.log(this.$store.state.profile);
-      if (this.$store.state.profile.avatarUrl == '' && this.$store.state.profile.nickname == '' && this.$store.state.profile.userId == '') {
+      if (
+        this.$store.state.profile.avatarUrl == "" &&
+        this.$store.state.profile.nickname == "" &&
+        this.$store.state.profile.userId == ""
+      ) {
         // 未登录状态
         this.isAvatar = true;
         this.isButton = false;
-        this.avatarUrl = '';
-        this.nickname = '';
+        this.avatarUrl = "";
+        this.nickname = "";
       } else {
         // 已登录状态
         this.isAvatar = false;
@@ -183,12 +187,12 @@ export default {
     },
     // 鼠标经过展示用户信息
     async showUserInfo() {
-      if(this.userInfoObj.level == 0) {
+      if (this.userInfoObj.level == 0) {
         const res = await this.$http.get(`/user/detail`, {
           params: {
             uid: this.$store.state.profile.userId
           }
-        })
+        });
         // console.log(res);
         this.userInfoObj.level = res.data.level;
         this.userInfoObj.listenSongs = res.data.listenSongs;
@@ -198,13 +202,13 @@ export default {
     },
     // 退出登录
     async quit() {
-      const res = await this.$http.get('/logout')
+      const res = await this.$http.get("/logout");
       // console.log(res);
-      if(res.data.code == 200) {
-        this.$message.info("已退出登录")
-        this.isAvatar = true
-        this.isButton = false
-        window.sessionStorage.removeItem("profile")
+      if (res.data.code == 200) {
+        this.$message.info("已退出登录");
+        this.isAvatar = true;
+        this.isButton = false;
+        window.sessionStorage.removeItem("profile");
       }
     },
     // 获取默认搜索提示和关键字
@@ -283,7 +287,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .title {
   font-size: 32px;
   margin-right: 20px;
@@ -309,10 +313,10 @@ export default {
 }
 .login {
   margin-right: 20px;
-}
-.login:hover {
-  color: #409eff;
-  cursor: pointer;
+  &:hover {
+    color: #409eff;
+    cursor: pointer;
+  }
 }
 .el-autocomplete {
   width: 100%;
@@ -323,24 +327,29 @@ export default {
 .switch-span {
   margin-right: 4px;
 }
-.avatar img {
-  margin-left: 20px;
-  height: 40px;
-  line-height: 46px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.avatar span {
-  float: right;
-  margin-left: 5px;
-  height: 40px;
-  line-height: 46px;
-  font-size: 16px;
-  color: black;
-}
-.avatar span:hover {
-  color: #fff;
-  text-decoration-line: underline;
+.avatar {
+  img {
+    margin-left: 20px;
+    height: 40px;
+    line-height: 46px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  span {
+    float: right;
+    margin-left: 5px;
+    height: 40px;
+    line-height: 46px;
+    font-size: 16px;
+    color: black;
+    &:hover {
+      color: #fff;
+      text-decoration-line: underline;
+      .userInfoBox {
+        display: block;
+      }
+    }
+  }
 }
 .infoFont {
   font-size: 20px;
@@ -351,8 +360,5 @@ export default {
 }
 .userInfoBox {
   display: none;
-}
-.avatar:hover .userInfoBox {
-  display: block;
 }
 </style>

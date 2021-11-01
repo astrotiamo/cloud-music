@@ -28,7 +28,7 @@
         </li>
       </ul>
       <div class="author">
-        <img src="../assets/img/avatar.jpg">
+        <img src="../assets/img/avatar.jpg" />
       </div>
     </div>
     <div class="main">
@@ -57,10 +57,10 @@
 
 <script>
 // 导入辅助函数
-import { mapState } from 'vuex'
-import aplayer from 'vue-aplayer'
+import { mapState } from "vuex";
+import aplayer from "vue-aplayer";
 export default {
-  name: 'Index',
+  name: "Index",
   components: {
     aplayer
   },
@@ -75,9 +75,9 @@ export default {
       // 迷你模式
       mini: false,
       // 音频循环播放, 可选值: 'all', 'one', 'none'
-      loop: 'all',
+      loop: "all",
       // 音频循环顺序, 可选值: 'list', 'random'
-      order: 'random',
+      order: "random",
       // 自动播放
       autoplay: false,
       // 吸底模式
@@ -85,66 +85,66 @@ export default {
       // 是否显示音乐控制面板
       listFolded: true,
       // 是否显示歌词
-      showLrc: true,
-    }
+      showLrc: true
+    };
   },
   mounted() {
-    this.$Bus.$on('play', this.play)
-    this.$Bus.$on('stop', this.stop)
+    this.$Bus.$on("play", this.play);
+    this.$Bus.$on("stop", this.stop);
   },
   computed: {
     // 通过vuex获取audioInfo函数
-    ...mapState(['audioInfo']),
+    ...mapState(["audioInfo"])
   },
   created() {
-    this.$Bus.$on('changeNavState', navState => {
-      this.hideNav = navState
+    this.$Bus.$on("changeNavState", navState => {
+      this.hideNav = navState;
       // console.log(this.hideNav)
-    })
-    this.$Bus.$on('changeState', state => {
-      this.hidePlayer = state
+    });
+    this.$Bus.$on("changeState", state => {
+      this.hidePlayer = state;
       // console.log(this.hideState)
-    })
+    });
   },
   methods: {
     // 初始化
     init() {
       // 创建清空按钮
-      this.createClearBtn()
+      this.createClearBtn();
     },
     // 播放事件
     play() {
-      console.log('播放')
-      let ap = this.$refs.aplayer
+      console.log("播放");
+      let ap = this.$refs.aplayer;
       // 0.5s后开始播放
       setTimeout(() => {
-        ap.play()
-      }, 500)
+        ap.play();
+      }, 500);
     },
     // 切换到指定索引歌曲
     switch() {
-      console.log('切换')
+      console.log("切换");
       setTimeout(() => {
-        let ap = this.$refs.aplayer
-        ap.switch(0)
-      }, 1000)
+        let ap = this.$refs.aplayer;
+        ap.switch(0);
+      }, 1000);
     },
     // 暂停播放
     stop() {
-      console.log('暂停');
-      let ap = this.$refs.aplayer
-      ap.pause()
+      console.log("暂停");
+      let ap = this.$refs.aplayer;
+      ap.pause();
     },
     // 切换播放状态
     toggle() {
-      let ap = this.$refs.aplayer
-      ap.toggle()
-    },
+      let ap = this.$refs.aplayer;
+      ap.toggle();
+    }
   }
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .index-container {
   display: flex;
   position: relative;
@@ -156,34 +156,29 @@ export default {
   background-color: #ededed;
   width: 200px;
   height: 100%;
-}
-
-.nav li {
-  height: 60px;
-  display: flex;
-  align-items: center;
-}
-
-.nav li:hover {
-  background-color: #e7e7e7;
-}
-
-.nav li .iconfont {
-  margin-right: 10px;
-  font-size: 20px;
-}
-
-.nav li a {
-  color: black;
-  padding-left: 30px;
-  font-size: 18px;
-  line-height: 60px;
-  width: 100%;
-  height: 100%;
-}
-
-.nav li a.router-link-active {
-  color: red;
+  li {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #e7e7e7;
+    }
+    .iconfont {
+      margin-right: 10px;
+      font-size: 20px;
+    }
+    a {
+      color: black;
+      padding-left: 30px;
+      font-size: 18px;
+      line-height: 60px;
+      width: 100%;
+      height: 100%;
+      &.router-link-active {
+        color: red;
+      }
+    }
+  }
 }
 
 .main {
@@ -191,11 +186,10 @@ export default {
   overflow-y: scroll;
   padding: 18px 20px;
   margin-bottom: 8px;
-}
-
-.main>div {
-  max-width: 1100px;
-  margin: 0 auto;
+  & > div {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 }
 
 .player {
@@ -228,5 +222,4 @@ export default {
   transform-origin: bottom;
   transform: rotateX(90deg);
 }
-
 </style>
