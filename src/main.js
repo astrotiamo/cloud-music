@@ -5,10 +5,6 @@ import router from './router'
 import store from './store'
 import mixins from './utils/mixin'
 
-// 导入less
-// import less from 'less'
-// Vue.use(less)
-
 // 全局混入
 Vue.mixin(mixins)
 

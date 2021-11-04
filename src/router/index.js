@@ -8,6 +8,7 @@ const Songs = () => import('../views/Songs')
 const Mvs = () => import('../views/Mvs')
 const Mv = () => import('../views/Mv')
 const Result = () => import('../views/Result')
+const Artist = () => import('../views/Artist')
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,10 @@ const routes = [
   {
     path: '/result',
     component: Result
+  },
+  {
+    path: '/artist',
+    component: Artist
   },
 ]
 

@@ -67,8 +67,8 @@
       :page-sizes="[5, 10, 15, 20]"
       :page-size="queryInfo.limit"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="list.length">
-    </el-pagination>
+      :total="list.length"
+    ></el-pagination>
   </div>
 </template>
 
@@ -94,8 +94,8 @@ export default {
   },
   watch: {
     type() {
-      this.queryInfo.offset = 1
-      this.fetchNewMusic()
+      this.queryInfo.offset = 1;
+      this.fetchNewMusic();
     }
   },
   methods: {
@@ -134,119 +134,124 @@ export default {
     },
     // 播放mv
     playMv(id) {
-      this.$router.push(`/mv?id=${id}`)
+      this.$router.push(`/mv?id=${id}`);
     },
     // 监听歌曲数目改变
     handleSizeChange(newSize) {
-      this.queryInfo.limit = newSize
-      let start = (this.queryInfo.offset - 1) * this.queryInfo.limit
-      let end = start + this.queryInfo.limit
-      this.currentList = this.list.slice(start, end)
+      this.queryInfo.limit = newSize;
+      let start = (this.queryInfo.offset - 1) * this.queryInfo.limit;
+      let end = start + this.queryInfo.limit;
+      this.currentList = this.list.slice(start, end);
     },
     // 监听页数改变
     handleCurrentChange(newPage) {
-      this.queryInfo.offset = newPage
-      let start = (this.queryInfo.offset - 1) * this.queryInfo.limit
-      let end = start + this.queryInfo.limit
-      this.currentList = this.list.slice(start, end)
+      this.queryInfo.offset = newPage;
+      let start = (this.queryInfo.offset - 1) * this.queryInfo.limit;
+      let end = start + this.queryInfo.limit;
+      this.currentList = this.list.slice(start, end);
     }
   }
 };
 </script>
 
-<style scoped>
-.songs-container .tab-bar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 14px;
-}
-.songs-container .tab-bar .item {
-  font-size: 15px;
-  color: grey;
-  margin-right: 20px;
-  cursor: pointer;
-}
-.songs-container .tab-bar .item.active {
-  color: #ee0000;
-}
-.songs-container .el-table {
-  margin-bottom: 20px;
-}
-.songs-container .el-table .index {
-  text-align: center;
-}
-.songs-container .el-table th {
-  font-weight: normal;
-}
-.songs-container .el-table td {
-  border: none;
-}
-.songs-container .el-table th:first-child {
-  width: 50px;
-}
-.songs-container .el-table th:nth-child(2) {
-  width: 130px;
-}
-.songs-container .el-table th:nth-child(3) {
-  width: 300px;
-}
-.songs-container .el-table th:nth-child(4) {
-  width: 200px;
-}
-.songs-container .el-table th:nth-child(5) {
-  width: 300px;
-}
-.songs-container .el-table .img-wrap {
-  position: relative;
-  width: 70px;
-  height: 70px;
-  margin: 0 auto;
-}
-.songs-container .el-table .img-wrap img {
-  margin-top: 2px;
-  width: 65px;
-  height: 65px;
-  border-radius: 5px;
-}
-.songs-container .el-table .img-wrap .icon-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #ee0000;
-  font-size: 22px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-}
-.songs-container .el-table .img-wrap:hover .icon-play {
-  opacity: 1;
-}
-.songs-container .el-table .song-wrap > span {
-  display: inline-block;
-}
-.songs-container .el-table .song-wrap .icon-add {
-  color: #ee0000;
-  border: 1px solid #ee0000;
-  margin: 0 6px;
-}
-.songs-container .el-table .song-wrap .icon-mv-line {
-  font-size: 20px;
-  color: #ee0000;
-}
-.songs-container .el-table .time {
-  text-align: center;
-}
-.songs-container .el-table tr:nth-child(2n) {
-  background-color: #fafafa;
-}
-
-.songs-container .el-table tr:hover {
-  background-color: #f5f7fa;
-}
-.songs-container .el-pagination {
-  margin-bottom: 80px;
-  text-align: center;
+<style lang="less" scoped>
+.songs-container {
+  .tab-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 14px;
+    .item {
+      font-size: 15px;
+      color: grey;
+      margin-right: 20px;
+      cursor: pointer;
+      &.active {
+        color: #ee0000;
+      }
+    }
+  }
+  .el-table {
+    margin-bottom: 20px;
+    .index {
+      text-align: center;
+    }
+    th {
+      font-weight: normal;
+      &:first-child {
+        width: 50px;
+      }
+      &:nth-child(2) {
+        width: 130px;
+      }
+      &:nth-child(3) {
+        width: 300px;
+      }
+      &:nth-child(4) {
+        width: 200px;
+      }
+      &:nth-child(5) {
+        width: 300px;
+      }
+    }
+    td {
+      border: none;
+    }
+    .img-wrap {
+      position: relative;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto;
+      img {
+        margin-top: 2px;
+        width: 65px;
+        height: 65px;
+        border-radius: 5px;
+      }
+      .icon-play {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #ee0000;
+        font-size: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+      }
+      &:hover .icon-play {
+        opacity: 1;
+      }
+    }
+    .song-wrap {
+      & > span {
+        display: inline-block;
+      }
+      .icon-add {
+        color: #ee0000;
+        border: 1px solid #ee0000;
+        margin: 0 6px;
+      }
+      .icon-mv-line {
+        font-size: 20px;
+        color: #ee0000;
+      }
+    }
+    .time {
+      text-align: center;
+    }
+    tr {
+      &:nth-child(2n) {
+        background-color: #fafafa;
+      }
+      &:hover {
+        background-color: #f5f7fa;
+      }
+    }
+  }
+  .el-pagination {
+    margin-bottom: 80px;
+    text-align: center;
+  }
 }
 </style>

@@ -15,7 +15,7 @@
         <div class="artist-info">
           <!-- 图片 -->
           <div class="avatar-wrap">
-            <img v-lazy="artistAvatarUrl">
+            <img v-lazy="artistAvatarUrl" />
           </div>
           <!-- 名称 -->
           <span class="name">{{mvDetail.artistName}}</span>
@@ -39,7 +39,7 @@
           <div class="item" v-for="(item, index) in mvCommentInfo.hotComments" :key="index">
             <!-- 头像 -->
             <div class="avatar-wrap">
-              <img v-lazy="item.user.avatarUrl">
+              <img v-lazy="item.user.avatarUrl" />
             </div>
             <!-- 内容 -->
             <div class="content-wrap">
@@ -65,7 +65,7 @@
         <div class="comments-wrap">
           <div class="item" v-for="(item, index) in mvCommentInfo.comments" :key="index">
             <div class="avatar-wrap">
-              <img v-lazy="item.user.avatarUrl">
+              <img v-lazy="item.user.avatarUrl" />
             </div>
             <div class="content-wrap">
               <div class="content">
@@ -93,8 +93,7 @@
           :page-size="10"
           layout="total, sizes, prev, pager, next, jumper"
           :total="mvCommentInfo.total"
-        >
-        </el-pagination>
+        ></el-pagination>
       </div>
     </div>
 
@@ -104,7 +103,7 @@
       <div class="mvs">
         <div class="item" v-for="(item, index) in similarMv" :key="index" @click="toMv(item.id)">
           <div class="img-wrap">
-            <img v-lazy="item.cover">
+            <img v-lazy="item.cover" />
             <span class="iconfont icon-play"></span>
             <div class="num-wrap">
               <span class="iconfont icon-play"></span>
@@ -128,13 +127,13 @@ export default {
   data() {
     return {
       // 当前mv的id
-      id: '',
+      id: "",
       // mv信息
-      mvUrl: '',
+      mvUrl: "",
       // mv详情
       mvDetail: {},
       // 歌手头像
-      artistAvatarUrl: '',
+      artistAvatarUrl: "",
       // 评论信息
       mvCommentInfo: {
         // 是否有评论
@@ -148,7 +147,7 @@ export default {
       },
       // 评论信息（分页）
       commentQueryInfo: {
-        id: '',
+        id: "",
         limit: 10,
         offset: 0
       },
@@ -156,26 +155,26 @@ export default {
       page: 0,
       // 相关推荐
       similarMv: []
-    }
+    };
   },
   created() {
-    this.id = this.$route.query.id
-    this.commentQueryInfo.id = this.id
-    this.fetchMvUrl(this.id)
-    this.fetchMvDetail(this.id)
-    this.fetchMvComment()
-    this.fetchSimilarMvInfo(this.id)
+    this.id = this.$route.query.id;
+    this.commentQueryInfo.id = this.id;
+    this.fetchMvUrl(this.id);
+    this.fetchMvDetail(this.id);
+    this.fetchMvComment();
+    this.fetchSimilarMvInfo(this.id);
   },
   methods: {
     // 获取mv地址
     async fetchMvUrl(id) {
-      const res = await this.$http.get('/mv/url', {
+      const res = await this.$http.get("/mv/url", {
         params: {
           id
         }
-      })
+      });
       // console.log(res);
-      this.mvUrl = res.data.data.url
+      this.mvUrl = res.data.data.url;
     },
     // 获取mv数据
     async fetchMvDetail(id) {
@@ -183,42 +182,42 @@ export default {
         params: {
           mvid: id
         }
-      })
+      });
       console.log(res.data.data);
-      this.mvDetail = res.data.data
-      this.fetchArtistDetail(this.mvDetail.artists[0].id)
+      this.mvDetail = res.data.data;
+      this.fetchArtistDetail(this.mvDetail.artists[0].id);
     },
     // 获取歌手数据
     async fetchArtistDetail(id) {
-      const res = await this.$http.get('/artist/detail', {
+      const res = await this.$http.get("/artist/detail", {
         params: {
           id
         }
-      })
+      });
       // console.log(res);
-      this.artistAvatarUrl = res.data.data.artist.cover
+      this.artistAvatarUrl = res.data.data.artist.cover;
     },
     // 获取mv评论信息
     async fetchMvComment() {
-      const res = await this.$http.get('/comment/mv', {
+      const res = await this.$http.get("/comment/mv", {
         params: this.commentQueryInfo
-      })
+      });
       console.log(res.data);
       // 是否显示最新评论
-      if(res.data.comments.length > 0) {
-        this.mvCommentInfo.isComment = true
+      if (res.data.comments.length > 0) {
+        this.mvCommentInfo.isComment = true;
       } else {
-        this.mvCommentInfo.isComment = false
+        this.mvCommentInfo.isComment = false;
       }
       // 是否显示热评
-      if(res.data.hotComments) {
-        this.mvCommentInfo.isHotComment = true
+      if (res.data.hotComments) {
+        this.mvCommentInfo.isHotComment = true;
       } else {
-        this.mvCommentInfo.isHotComment = false
+        this.mvCommentInfo.isHotComment = false;
       }
-      this.mvCommentInfo.total = res.data.total
-      this.mvCommentInfo.comments = res.data.comments
-      this.mvCommentInfo.hotComments = res.data.hotComments
+      this.mvCommentInfo.total = res.data.total;
+      this.mvCommentInfo.comments = res.data.comments;
+      this.mvCommentInfo.hotComments = res.data.hotComments;
     },
     // 获取相似mv数据
     async fetchSimilarMvInfo(id) {
@@ -226,219 +225,224 @@ export default {
         params: {
           mvid: id
         }
-      })
-      this.similarMv = res.data.mvs
+      });
+      this.similarMv = res.data.mvs;
       console.log(this.similarMv);
     },
     // 点击类似mv重新渲染数据
     toMv(id) {
-      this.$router.push(`/mv?id=${id}`)
-      this.id = id
-      this.commentQueryInfo.id = this.id
-      this.fetchMvUrl(this.id)
-      this.fetchMvDetail(this.id)
-      this.fetchMvComment()
-      this.fetchSimilarMvInfo(this.id)
+      this.$router.push(`/mv?id=${id}`);
+      this.id = id;
+      this.commentQueryInfo.id = this.id;
+      this.fetchMvUrl(this.id);
+      this.fetchMvDetail(this.id);
+      this.fetchMvComment();
+      this.fetchSimilarMvInfo(this.id);
     },
     // 监听页容量的改变
     sizeChange(newSize) {
-      this.commentQueryInfo.limit = newSize
-      this.fetchMvComment()
+      this.commentQueryInfo.limit = newSize;
+      this.fetchMvComment();
     },
     // 监听页码的改变
     currentPageChange(newPage) {
-      this.page = newPage
-      this.commentQueryInfo.offset = (this.page - 1) * this.commentQueryInfo.limit
-      this.fetchMvComment()
+      this.page = newPage;
+      this.commentQueryInfo.offset =
+        (this.page - 1) * this.commentQueryInfo.limit;
+      this.fetchMvComment();
     }
   }
-}
+};
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .mv-container {
   display: flex;
-}
-.mv-container .title {
-  margin-bottom: 20px;
-}
-.mv-container .mv-wrap {
-  width: 700px;
-  margin-right: 35px;
-}
-.mv-container .mv-wrap .video-wrap {
-  width: 100%;
-  height: 390px;
-  margin-bottom: 20px;
-}
-.mv-container .mv-wrap .video-wrap video {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  outline: none;
-}
-.mv-container .mv-wrap .info-wrap {
-  margin-bottom: 50px;
-}
-.mv-container .mv-wrap .info-wrap .artist-info {
-  display: flex;
-  align-items: center;
-  margin-bottom: 35px;
-}
-.mv-container .mv-wrap .info-wrap .artist-info .avatar-wrap {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  margin-right: 10px;
-  overflow: hidden;
-}
-.mv-container .mv-wrap .info-wrap .artist-info .avatar-wrap img {
-  width: 100%;
-  height: 100%;
-}
-.mv-container .mv-wrap .info-wrap .mv-info .title {
-  font-size: 30px;
-}
-.mv-container .mv-wrap .info-wrap .mv-info .date {
-  margin-right: 25px;
-  color: #bebebe;
-  font-size: 14px;
-}
-.mv-container .mv-wrap .info-wrap .mv-info .desc {
-  font-size: 15px;
-  margin-top: 20px;
-}
-.mv-container .mv-wrap .comment-wrap {
-  margin-bottom: 70px;
-}
-.mv-container .mv-wrap .comment-wrap .title {
-  font-size: 25px;
-}
-.mv-container .mv-wrap .comment-wrap .title .number {
-  font-size: 20px;
-}
-.mv-container .mv-wrap .comments-wrap .item {
-  display: flex;
-  padding-top: 20px;
-}
-.mv-container .mv-wrap .comments-wrap .item .avatar-wrap {
-  margin-right: 15px;
-}
-.mv-container .mv-wrap .comments-wrap .item .avatar-wrap img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
-.mv-container .mv-wrap .comments-wrap .item:not(:last-child) .content-wrap {
-  border-bottom: 1px solid #f2f2f1;
-}
-.mv-container .mv-wrap .comments-wrap .item .content-wrap {
-  padding-bottom: 20px;
-  flex: 1;
-}
-.mv-container .mv-wrap .comments-wrap .item .content-wrap .name {
-  color: #517eaf;
-  font-size: 14px;
-}
-.mv-container .mv-wrap .comments-wrap .item .content-wrap .comment {
-  font-size: 14px;
-}
-.mv-container .mv-wrap .comments-wrap .item .content-wrap .date {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #bebebe;
-}
-.mv-container .mv-wrap .comments-wrap .item .content-wrap .date .icon-zan {
-  float: right;
-}
-.mv-container .mv-wrap .comment-wrap .item .content-wrap .content,
-.mv-container .mv-wrap .comment-wrap .item .content-wrap .reply {
-  margin-bottom: 10px;
-}
-.mv-container .mv-wrap .comment-wrap .item .content-wrap .reply {
-  padding: 10px;
-  background-color: #e6e5e6;
-  border-radius: 5px;
-}
-.mv-container .el-pagination {
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 80px;
-}
-.mv-container .recommend-wrap {
-  flex: 1;
-}
-.mv-container .recommend-wrap .mvs {
-  display: flex;
-  flex-wrap: wrap;
-}
-.mv-container .recommend-wrap .mvs .item {
-  cursor: pointer;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding: 10px;
-}
-.mv-container .recommend-wrap .mvs .item:hover {
-  background-color: #f5f5f5;
-}
-.mv-container .recommend-wrap .mvs .item .img-wrap {
-  width: 180px;
-  position: relative;
-  margin-right: 10px;
-}
-.mv-container .recommend-wrap .mvs .item .img-wrap img {
-  width: 100%;
-  border-radius: 5px;
-}
-.mv-container .recommend-wrap .mvs .item .img-wrap>.icon-play {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #ee0000;
-  font-size: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-}
-.mv-container .recommend-wrap .mvs .item .img-wrap:hover>.icon-play {
-  opacity: 1;
-}
-.mv-container .recommend-wrap .mvs .item .img-wrap .num-wrap {
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: white;
-  font-size: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 2px;
-  padding-right: 5px;
-}
-.mv-container .recommend-wrap .mvs .item .img-wrap .num-wrap .icon-play {
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  margin-right: 4px;
-}
-.mv-container .recommend-wrap .mvs .item .img-wrap .time {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  color: white;
-  font-size: 15px;
-}
-.mv-container .recommend-wrap .mvs .item .info-wrap {
-  flex: 1;
-}
-.mv-container .recommend-wrap .mvs .item .info-wrap .name {
-  font-size: 15px;
-}
-.mv-container .recommend-wrap .mvs .item .info-wrap .artistName {
-  font-size: 14px;
-  color: #c5c5c5;
+  .title {
+    margin-bottom: 20px;
+  }
+  .mv-wrap {
+    width: 700px;
+    margin-right: 35px;
+    .video-wrap {
+      width: 100%;
+      height: 390px;
+      margin-bottom: 20px;
+      video {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        outline: none;
+      }
+    }
+    .info-wrap {
+      margin-bottom: 50px;
+      .artist-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 35px;
+        .avatar-wrap {
+          width: 70px;
+          height: 70px;
+          border-radius: 50%;
+          margin-right: 10px;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+      .mv-info {
+        .title {
+          font-size: 30px;
+        }
+        .date {
+          margin-right: 25px;
+          color: #bebebe;
+          font-size: 14px;
+        }
+        .desc {
+          font-size: 15px;
+          margin-top: 20px;
+        }
+      }
+    }
+    .comment-wrap {
+      margin-bottom: 70px;
+      .title {
+        font-size: 25px;
+        .number {
+          font-size: 20px;
+        }
+      }
+      .item {
+        display: flex;
+        padding-top: 20px;
+        .avatar-wrap {
+          margin-right: 15px;
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+        }
+        &:not(:last-child) .content-wrap {
+          border-bottom: 1px solid #f2f2f1;
+        }
+        .content-wrap {
+          padding-bottom: 20px;
+          flex: 1;
+          .name {
+            color: #517eaf;
+            font-size: 14px;
+          }
+          .comment {
+            font-size: 14px;
+          }
+          .date {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #bebebe;
+            .icon-zan {
+              float: right;
+            }
+          }
+          .content,
+          .reply {
+            margin-bottom: 10px;
+          }
+          .reply {
+            padding: 10px;
+            background-color: #e6e5e6;
+            border-radius: 5px;
+          }
+        }
+      }
+    }
+  }
+  .el-pagination {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 80px;
+  }
+  .recommend-wrap {
+    flex: 1;
+    .mvs {
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        cursor: pointer;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        &:hover {
+          background-color: #f5f5f5;
+        }
+        .img-wrap {
+          width: 180px;
+          height: 100px;
+          position: relative;
+          margin-right: 10px;
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+          }
+          & > .icon-play {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ee0000;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+          }
+          &:hover > .icon-play {
+            opacity: 1;
+          }
+          .num-wrap {
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: white;
+            font-size: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 2px;
+            padding-right: 5px;
+            .icon-play {
+              font-size: 14px;
+              display: flex;
+              align-items: center;
+              margin-right: 4px;
+            }
+          }
+          .time {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            color: white;
+            font-size: 15px;
+          }
+        }
+        .info-wrap {
+          flex: 1;
+          .name {
+            font-size: 15px;
+          }
+          .artistName {
+            font-size: 14px;
+            color: #c5c5c5;
+          }
+        }
+      }
+    }
+  }
 }
 </style>

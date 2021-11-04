@@ -144,19 +144,27 @@ export default {
     },
     // 当前页码发生改变
     handleCurrentChange(val) {
-      this.paginationForm.page = val
-      this.fetchList(this.paginationForm.size, this.selected, ((this.paginationForm.page-1)*this.paginationForm.size))
+      this.paginationForm.page = val;
+      this.fetchList(
+        this.paginationForm.size,
+        this.selected,
+        (this.paginationForm.page - 1) * this.paginationForm.size
+      );
     },
     // 页容量改变
     handleSizeChange(val) {
-      this.paginationForm.size = val
-      this.fetchList(this.paginationForm.size, this.selected, ((this.paginationForm.page-1)*this.paginationForm.size))
+      this.paginationForm.size = val;
+      this.fetchList(
+        this.paginationForm.size,
+        this.selected,
+        (this.paginationForm.page - 1) * this.paginationForm.size
+      );
     }
   }
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .top-card {
   padding: 20px;
   height: 200px;
@@ -164,135 +172,141 @@ export default {
   position: relative;
   overflow: hidden;
   border-radius: 5px;
-}
-.top-card .icon-wrap {
-  margin-right: 20px;
-}
-.top-card .icon-wrap img {
-  width: 160px;
-  height: 160px;
-}
-.top-card .content-wrap .tag {
-  color: #dfac67;
-  border: 1px solid #dfac67;
-  width: 100px;
-  height: 30px;
-  text-align: center;
-  border-radius: 5px;
-  font-size: 16px;
-  line-height: 30px;
-  cursor: pointer;
-}
-.top-card .content-wrap .title {
-  color: white;
-  padding-top: 10px;
-}
-.top-card .content-wrap .info {
-  color: #888482;
-  font-size: 14px;
-  padding-top: 5px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
-}
-.top-card .bg {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  filter: blur(20px); /* 模糊度 */
-}
-.top-card .bg-mask {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: -1;
+  .icon-wrap {
+    margin-right: 20px;
+    img {
+      width: 160px;
+      height: 160px;
+    }
+  }
+  .content-wrap {
+    .tag {
+      color: #dfac67;
+      border: 1px solid #dfac67;
+      width: 100px;
+      height: 30px;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 16px;
+      line-height: 30px;
+      cursor: pointer;
+    }
+    .title {
+      color: white;
+      padding-top: 10px;
+    }
+    .info {
+      color: #888482;
+      font-size: 14px;
+      padding-top: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+    }
+  }
+  .bg {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    filter: blur(20px); /* 模糊度 */
+  }
+  .bg-mask {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
 }
 .tab-container {
   padding-top: 30px;
   /* margin-bottom: 60px; */
-}
-.tab-container .tab-bar {
-  display: flex;
-  justify-content: flex-end;
-}
-.tab-container .tab-bar .item {
-  font-size: 15px;
-  color: grey;
-  margin-right: 20px;
-  cursor: pointer;
-}
-.tab-container .tab-bar .active {
-  color: #ee0000;
-}
-.tab-container .tab-content {
-  margin-top: 20px;
-}
-.tab-container .tab-content .items {
-  display: flex;
-  flex-wrap: wrap;
-}
-.tab-container .tab-content .items .item {
-  width: 200px;
-  margin: 10px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-}
-.tab-container .tab-content .items .item img {
-  width: 200px;
-  height: 200px;
-  border-radius: 5px;
-}
-.tab-container .tab-content .items .item .number-wrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 14px;
-  color: white;
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-  padding-left: 5px;
-  background-color: rgba(0, 0, 0, 0.2);
-  top: -30px;
-}
-.tab-container .tab-content .items .item:hover .number-wrap {
-  top: 0;
-}
-.tab-container .tab-content .items .item .img-wrap {
-  position: relative;
-}
-.tab-container .tab-content .items .item .img-wrap .icon-play {
-  position: absolute;
-  right: 10px;
-  bottom: 13px;
-  color: #ee0000;
-  font-size: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-}
-.tab-container .tab-content .items .item .img-wrap:hover .icon-play {
-  opacity: 1;
-}
-.tab-container .tab-content .items .item .name {
-  font-size: 14px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  .tab-bar {
+    display: flex;
+    justify-content: flex-end;
+    .item {
+      font-size: 15px;
+      color: grey;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+    .active {
+      color: #ee0000;
+    }
+  }
+  .tab-content {
+    margin-top: 20px;
+    .items {
+      display: flex;
+      flex-wrap: wrap;
+      .item {
+        width: 200px;
+        margin: 10px;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        img {
+          width: 200px;
+          height: 200px;
+          border-radius: 5px;
+        }
+        .number-wrap {
+          position: absolute;
+          top: 0;
+          left: 0;
+          font-size: 14px;
+          color: white;
+          width: 100%;
+          height: 30px;
+          line-height: 30px;
+          padding-left: 5px;
+          background-color: rgba(0, 0, 0, 0.2);
+          top: -30px;
+        }
+        &:hover {
+          .number-wrap {
+            top: 0;
+          }
+        }
+        .img-wrap {
+          position: relative;
+          .icon-play {
+            position: absolute;
+            right: 10px;
+            bottom: 13px;
+            color: #ee0000;
+            font-size: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+          }
+          &:hover {
+            .icon-play {
+              opacity: 1;
+            }
+          }
+        }
+        .name {
+          font-size: 14px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+      }
+    }
+  }
 }
 .pagination-bottom {
   margin-top: 20px;

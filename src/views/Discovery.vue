@@ -35,15 +35,15 @@
     <div class="new">
       <h3 class="title">最新音乐</h3>
       <div class="items">
-        <div class="item" v-for="(item, index) in songs" :key="index" @click="playMusic(item.id)">
-          <div class="img-wrap">
+        <div class="item" v-for="(item, index) in songs" :key="index">
+          <div class="img-wrap" @click="playMusic(item.id)">
             <img v-lazy="item.picUrl" />
             <span class="iconfont icon-play"></span>
           </div>
           <div class="song-wrap">
             <div class="song-name">{{item.name}}</div>
             <div v-if="item.song.artists">
-              <div class="artist">{{item.song.artists[0].name}}</div>
+              <div class="artist" @click="toArtist(item.song.artists[0].id)">{{item.song.artists[0].name}}</div>
             </div>
           </div>
         </div>
@@ -54,8 +54,8 @@
     <div class="mv">
       <h3 class="title">推荐MV</h3>
       <div class="items">
-        <div class="item" v-for="(item, index) in mvs" :key="index" @click="playMV(item.id)">
-          <div class="img-wrap">
+        <div class="item" v-for="(item, index) in mvs" :key="index">
+          <div class="img-wrap" @click="playMV(item.id)">
             <img v-lazy="item.picUrl" />
             <span class="iconfont icon-play"></span>
             <div class="number-wrap">
@@ -66,7 +66,7 @@
           </div>
           <div class="info-wrap">
             <div class="name">{{item.name}}</div>
-            <div class="artist">{{item.artistName}}</div>
+            <div class="artist" @click="toArtist(item.artists[0].id)">{{item.artistName}}</div>
           </div>
         </div>
       </div>
@@ -124,13 +124,18 @@ export default {
     async fetchNewSong() {
       const res = await this.$http.get("/personalized/newsong");
       this.songs = res.data.result;
+      // console.log(this.songs);
     },
     // 获取推荐MV
     async fetchMvs() {
       const res = await this.$http.get("/personalized/mv");
       this.mvs = res.data.result;
+      // console.log(this.mvs);
     },
-
+    // 跳转到歌手详情
+    toArtist(id) {
+      this.$router.push(`/artist?id=${id}`)
+    },
     // 跳转到歌单详情页
     toPlayListDetail(id) {
       this.$router.push(`/playlist?id=${id}`);
@@ -285,6 +290,7 @@ export default {
         font-size: 16px;
         .artist {
           font-size: 14px;
+          cursor: pointer;
           color: grey;
         }
       }
@@ -292,7 +298,7 @@ export default {
   }
 }
 .mv {
-  margin-bottom: 54px;
+  margin-bottom: 94px;
   .items {
     display: flex;
     justify-content: space-around;
@@ -349,6 +355,7 @@ export default {
         }
         .artist {
           font-size: 14px;
+          cursor: pointer;
           color: #c5c5c5;
         }
       }
