@@ -46,7 +46,15 @@
               >
                 <span class="iconfont icon-add" @click="playMusic(item.id, item.name, false)"></span>
               </el-tooltip>
-              <span v-if="item.mvid" class="iconfont icon-mv-line" @click="playMv(item.mvid)"></span>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                content="播放MV"
+                :enterable="false"
+                placement="bottom"
+              >
+                <span v-if="item.mvid" class="iconfont icon-mv-line" @click="playMv(item.mvid)"></span>
+              </el-tooltip>
             </div>
           </td>
           <!-- 歌手 -->
@@ -107,10 +115,10 @@ export default {
           offset: 1
         }
       });
-      console.log(res);
+      // console.log(res);
       this.list = res.data.data;
       this.currentList = this.list.splice(0, this.queryInfo.limit);
-      console.log(this.currentList);
+      // console.log(this.currentList);
     },
     // 播放音乐
     playMusic(id, name, insert = true) {
@@ -233,7 +241,7 @@ export default {
         margin: 0 6px;
       }
       .icon-mv-line {
-        font-size: 20px;
+        font-size: 22px;
         color: #ee0000;
       }
     }
@@ -241,6 +249,7 @@ export default {
       text-align: center;
     }
     tr {
+      border: none;
       &:nth-child(2n) {
         background-color: #fafafa;
       }

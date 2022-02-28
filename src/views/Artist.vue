@@ -185,7 +185,7 @@ export default {
           limit: 50
         }
       });
-      console.log(res);
+      // console.log(res);
       this.hotMv = res.data.mvs;
     },
     // 获取歌手描述
@@ -280,7 +280,7 @@ export default {
       font-size: 20px;
     }
     .albums-container {
-      margin: 10px 10px;
+      margin: 10px;
       display: flex;
       flex-wrap: wrap;
       li {
@@ -291,7 +291,7 @@ export default {
         align-items: center;
         .album-wrap {
           position: relative;
-          margin: 10px 10px;
+          margin: 10px;
           width: 150px;
           height: 150px;
           img {

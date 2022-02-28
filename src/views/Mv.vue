@@ -69,11 +69,11 @@
             </div>
             <div class="content-wrap">
               <div class="content">
-                <span class="name">{{item.user.nickname}}</span>
+                <span class="name">{{item.user.nickname}}：</span>
                 <span class="comment">{{item.content}}</span>
               </div>
               <div class="reply" v-if="item.beReplied[0]">
-                <span class="name">{{item.beReplied[0].user.nickname}}</span>
+                <span class="name">{{item.beReplied[0].user.nickname}}：</span>
                 <span class="comment">{{item.beReplied[0].content}}</span>
               </div>
               <div class="date">
@@ -183,7 +183,7 @@ export default {
           mvid: id
         }
       });
-      console.log(res.data.data);
+      // console.log(res.data.data);
       this.mvDetail = res.data.data;
       this.fetchArtistDetail(this.mvDetail.artists[0].id);
     },
@@ -202,7 +202,7 @@ export default {
       const res = await this.$http.get("/comment/mv", {
         params: this.commentQueryInfo
       });
-      console.log(res.data);
+      // console.log(res.data);
       // 是否显示最新评论
       if (res.data.comments.length > 0) {
         this.mvCommentInfo.isComment = true;
@@ -227,7 +227,7 @@ export default {
         }
       });
       this.similarMv = res.data.mvs;
-      console.log(this.similarMv);
+      // console.log(this.similarMv);
     },
     // 点击类似mv重新渲染数据
     toMv(id) {
@@ -276,11 +276,11 @@ export default {
       }
     }
     .info-wrap {
-      margin-bottom: 50px;
+      margin-bottom: 40px;
       .artist-info {
         display: flex;
         align-items: center;
-        margin-bottom: 35px;
+        margin-bottom: 15px;
         .avatar-wrap {
           width: 70px;
           height: 70px;

@@ -16,7 +16,7 @@
       </div>
       <!-- 歌单背景 -->
       <img v-lazy="topList.coverImgUrl" class="bg" />
-      <div class="bg-mask"></div>
+      <!-- <div class="bg-mask"></div> -->
     </div>
 
     <!-- 标签栏及其内容区域 -->
@@ -102,11 +102,19 @@ export default {
   },
   watch: {
     // 监听tag标签改变的事件发生
-    selected() {
-      // 获取新的顶部推荐歌单
-      this.fetchRecommendList(1, this.selected);
-      // 获取新的歌单列表
-      this.fetchList(10, this.selected);
+    // selected() {
+      // // 获取新的顶部推荐歌单
+      // this.fetchRecommendList(1, this.selected);
+      // // 获取新的歌单列表
+      // this.fetchList(10, this.selected);
+    // }
+    selected: {
+      handler(newValue, oldValue) {
+        // 获取新的顶部推荐歌单
+        this.fetchRecommendList(1, this.selected);
+        // 获取新的歌单列表
+        this.fetchList(10, this.selected);
+      }
     }
   },
   created() {
@@ -189,7 +197,7 @@ export default {
       border-radius: 5px;
       font-size: 16px;
       line-height: 30px;
-      cursor: pointer;
+      cursor: default;
     }
     .title {
       color: white;
@@ -214,18 +222,18 @@ export default {
     right: 0;
     bottom: 0;
     z-index: -1;
-    filter: blur(20px); /* 模糊度 */
+    filter: blur(15px) brightness(40%); /* 模糊度 */
   }
-  .bg-mask {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-  }
+  // .bg-mask {
+  //   width: 100%;
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   background-color: rgba(0, 0, 0, 0.5);
+  //   z-index: -1;
+  // }
 }
 .tab-container {
   padding-top: 30px;
@@ -270,7 +278,7 @@ export default {
           line-height: 30px;
           padding-left: 5px;
           background-color: rgba(0, 0, 0, 0.2);
-          top: -30px;
+          top: -30px; // 隐藏
         }
         &:hover {
           .number-wrap {

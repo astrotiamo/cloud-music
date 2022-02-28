@@ -5,27 +5,41 @@
       <!-- 图片区域 -->
       <div class="img-wrap">
         <img v-lazy="playList.coverImgUrl" class="border-radius" />
-        <div class="play-count iconfont icon-play">{{playList.playCount | ellipsisPlayCount}}</div>
+        <div class="play-count iconfont icon-play">
+          {{ playList.playCount | ellipsisPlayCount }}
+        </div>
       </div>
       <!-- 信息区域 -->
       <div class="info-wrap">
         <!-- 歌单名称 -->
-        <p class="title">{{playList.name}}</p>
+        <p class="main-title">{{ playList.name }}</p>
         <!-- 用户信息 -->
         <div class="creator-wrap">
           <!-- 头像 -->
           <img v-lazy="playList.creator.avatarUrl" class="avatar" />
           <!-- 名称 -->
-          <span class="name">{{playList.creator.nickname}}</span>
+          <span class="name">{{ playList.creator.nickname }}</span>
           <!-- 创建时间 -->
-          <span class="time">{{playList.updateTime | localeTimeString}}更新</span>
+          <span class="time"
+            >{{ playList.updateTime | localeTimeString }}更新</span
+          >
         </div>
         <!-- 播放 -->
         <div class="play-wrap">
-          <el-tooltip class="item" effect="dark" content="替换播放列表" placement="bottom">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="替换播放列表"
+            placement="bottom"
+          >
             <span class="text iconfont icon-circle-play">播放全部</span>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="添加到播放列表" placement="right">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="添加到播放列表"
+            placement="right"
+          >
             <span class="add-playlist iconfont icon-add"></span>
           </el-tooltip>
         </div>
@@ -33,7 +47,9 @@
         <div class="tag-wrap">
           <span class="title">标签：</span>
           <ul>
-            <li v-for="(item, index) in playList.tags" :key="index">{{item}}</li>
+            <li v-for="(item, index) in playList.tags" :key="index">
+              {{ item }}
+            </li>
           </ul>
         </div>
         <!-- 简介 -->
@@ -47,7 +63,9 @@
             :content="playList.description"
             placement="bottom"
           >
-            <span class="desc">{{playList.description || playList.name}}</span>
+            <span class="desc">{{
+              playList.description || playList.name
+            }}</span>
           </el-tooltip>
         </div>
       </div>
@@ -72,7 +90,7 @@
               @dblclick="playMusic(item.id, item.name)"
             >
               <!-- 序号 -->
-              <td class="index">{{index + 1}}</td>
+              <td class="index">{{ index + 1 }}</td>
               <!-- 封面 -->
               <td>
                 <div class="img-wrap">
@@ -85,7 +103,7 @@
               <!-- 歌名 -->
               <td>
                 <div class="song-wrap">
-                  <span class="title">{{item.name}}</span>
+                  <span class="title">{{ item.name }}</span>
                   <el-tooltip
                     class="item"
                     effect="dark"
@@ -93,31 +111,42 @@
                     :enterable="false"
                     placement="bottom"
                   >
-                    <span class="iconfont icon-add" @click="playMusic(item.id, item.name, false)"></span>
+                    <span
+                      class="iconfont icon-add"
+                      @click="playMusic(item.id, item.name, false)"
+                    ></span>
                   </el-tooltip>
-                  <span class="iconfont icon-mv-line" v-if="item.mvid" @click="playMv(item.mvid)"></span>
+                  <span
+                    class="iconfont icon-mv-line"
+                    v-if="item.mvid"
+                    @click="playMv(item.mvid)"
+                  ></span>
                 </div>
               </td>
               <!-- 歌手 -->
-              <td>{{item.ar[0].name}}</td>
+              <td>{{ item.ar[0].name }}</td>
               <!-- 专辑 -->
-              <td>{{item.al.name}}</td>
+              <td>{{ item.al.name }}</td>
               <!-- 时长 -->
-              <td>{{item.dt | formatDuration}}</td>
+              <td>{{ item.dt | formatDuration }}</td>
             </tr>
           </tbody>
         </table>
       </el-tab-pane>
 
-      <el-tab-pane :label="'评论(' + (commentInfo.total) + ')'" name="2">
+      <el-tab-pane :label="'评论(' + commentInfo.total + ')'" name="2">
         <!-- 热评区 -->
         <div class="comment-wrap" v-if="commentInfo.hotComments">
           <p class="title">
             精彩评论
-            <span>{{`(${commentInfo.hotComments.length})`}}</span>
+            <span>{{ `(${commentInfo.hotComments.length})` }}</span>
           </p>
           <div class="comments-wrap">
-            <div class="item" v-for="(item, index) in commentInfo.hotComments" :key="index">
+            <div
+              class="item"
+              v-for="(item, index) in commentInfo.hotComments"
+              :key="index"
+            >
               <!-- 评论者头像 -->
               <div class="avatar">
                 <img v-lazy="item.user.avatarUrl" />
@@ -125,18 +154,20 @@
               <div class="content-wrap">
                 <!-- 评论者区 -->
                 <div class="content">
-                  <span class="name">{{item.user.nickname}}：</span>
-                  <span class="comment">{{item.content}}</span>
+                  <span class="name">{{ item.user.nickname }}：</span>
+                  <span class="comment">{{ item.content }}</span>
                 </div>
                 <!-- 回复区 -->
                 <div class="reply" v-if="item.beReplied[0]">
-                  <span class="name">{{item.beReplied[0].user.nickname}}：</span>
-                  <span class="comment">{{item.beReplied[0].content}}</span>
+                  <span class="name"
+                    >{{ item.beReplied[0].user.nickname }}：</span
+                  >
+                  <span class="comment">{{ item.beReplied[0].content }}</span>
                 </div>
                 <!-- 时间 -->
                 <div class="time">
-                  <span>{{item.time | localeTimeString}}</span>
-                  <span class="iconfont icon-zan">{{item.likedCount}}</span>
+                  <span>{{ item.time | localeTimeString }}</span>
+                  <span class="iconfont icon-zan">{{ item.likedCount }}</span>
                 </div>
               </div>
             </div>
@@ -146,25 +177,31 @@
         <div class="comment-wrap" v-if="commentInfo.comments.length > 0">
           <p class="title">
             最新评论
-            <span>{{`(${commentInfo.total})`}}</span>
+            <span>{{ `(${commentInfo.total})` }}</span>
           </p>
           <div class="comments-wrap">
-            <div class="item" v-for="(item, index) in commentInfo.comments" :key="index">
+            <div
+              class="item"
+              v-for="(item, index) in commentInfo.comments"
+              :key="index"
+            >
               <div class="avatar">
                 <img v-lazy="item.user.avatarUrl" />
               </div>
               <div class="content-wrap">
                 <div class="content">
-                  <span class="name">{{item.user.nickname}}：</span>
-                  <span class="comment">{{item.content}}</span>
+                  <span class="name">{{ item.user.nickname }}：</span>
+                  <span class="comment">{{ item.content }}</span>
                 </div>
                 <div class="reply" v-if="item.beReplied[0]">
-                  <span class="name">{{item.beReplied[0].user.nickname}}：</span>
-                  <span class="comment">{{item.beReplied[0].content}}</span>
+                  <span class="name"
+                    >{{ item.beReplied[0].user.nickname }}：</span
+                  >
+                  <span class="comment">{{ item.beReplied[0].content }}</span>
                 </div>
                 <div class="time">
-                  <span>{{item.time | localeTimeString}}</span>
-                  <span class="iconfont icon-zan">{{item.likedCount}}</span>
+                  <span>{{ item.time | localeTimeString }}</span>
+                  <span class="iconfont icon-zan">{{ item.likedCount }}</span>
                 </div>
               </div>
             </div>
@@ -193,7 +230,7 @@ export default {
     return {
       // 歌单信息
       playList: {
-        creator: {}
+        creator: {},
       },
       // 此歌单的id
       id: "",
@@ -203,14 +240,14 @@ export default {
       queryInfo: {
         limit: 10,
         // 页码
-        page: 0
+        page: 0,
       },
       // 评论信息
       commentInfo: {
         comments: [],
         hotComments: [],
-        total: 0
-      }
+        total: 0,
+      },
     };
   },
   created() {
@@ -223,7 +260,7 @@ export default {
     async fetchMusicListDetail(id) {
       const res = await this.$http.get(`/playlist/detail?id=${id}`);
       this.playList = res.data.playlist;
-      console.log(this.playList);
+      // console.log(this.playList);
     },
     // 获取评论信息
     async fetchMusicComments(id, limit, offset = 0) {
@@ -232,8 +269,8 @@ export default {
           id,
           // 默认每页十条评论
           limit,
-          offset
-        }
+          offset,
+        },
       });
       this.commentInfo = res.data;
       // console.log(this.commentInfo);
@@ -243,7 +280,7 @@ export default {
       } else {
         let newData = {
           comments: res.data.comments,
-          total: res.data.total
+          total: res.data.total,
         };
         if (
           res.data.hotComments.length !== 0 ||
@@ -259,19 +296,19 @@ export default {
     playMusic(id, name, insert = true) {
       this.$store.dispatch("getAudioInfo", {
         id,
-        isInsert: insert
+        isInsert: insert,
       });
       if (insert) {
         // 子传父 发射事件
         insert && this.$Bus.$emit("play");
         this.$notify({
           title: "开始播放：" + name,
-          offset: 50
+          offset: 50,
         });
       } else {
         this.$notify({
           title: "已添加到播放列表",
-          offset: 50
+          offset: 50,
         });
       }
     },
@@ -296,8 +333,8 @@ export default {
         this.queryInfo.limit,
         (this.queryInfo.page - 1) * this.queryInfo.limit
       );
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -306,6 +343,10 @@ export default {
   margin: 0 auto;
   .top-wrap {
     display: flex;
+    .main-title {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
     .img-wrap {
       margin-right: 30px;
       position: relative;
@@ -331,7 +372,7 @@ export default {
       .creator-wrap {
         display: flex;
         align-items: center;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
         img {
           width: 35px;
           height: 35px;
@@ -358,7 +399,7 @@ export default {
         span {
           color: white;
           &.text {
-            font-size: 16px;
+            font-size: 15px;
             &.add-playlist {
               margin: 0;
               padding-left: 5px;
@@ -505,7 +546,7 @@ export default {
     }
   }
   .comment-wrap {
-    margin-bottom: 120px;
+    margin-bottom: 40px;
     .title {
       font-size: 20px;
       .number {

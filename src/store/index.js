@@ -86,7 +86,7 @@ export default new Vuex.Store({
 
     // 获取歌曲信息
     async getAudioInfo(context, payload) {
-      console.log('payload:' + payload);
+      console.log(payload);
       // 外部调用函数时传递一个对象，对象有两个属性，一个是id，另一个是isInsert，是否插入
       // payload:{
       //   id:id,

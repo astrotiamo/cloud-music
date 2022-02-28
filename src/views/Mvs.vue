@@ -109,9 +109,9 @@
     <!-- 推荐mv -->
     <div class="mvs">
       <div class="items">
-        <div class="item" v-for="(item, index) in mvList" :key="index" @click="toMv(item.id)">
+        <div class="item" v-for="(item, index) in mvList" :key="index">
           <!-- 封面 -->
-          <div class="img-wrap">
+          <div class="img-wrap" @click="toMv(item.id)">
             <img v-lazy="item.cover" />
             <!-- 播放量 -->
             <div class="num-wrap">
@@ -121,8 +121,8 @@
           </div>
           <!-- 信息 -->
           <div class="info-wrap">
-            <div class="name">{{item.name}}</div>
-            <div class="artist">{{item.artistName}}</div>
+            <div class="name" @click="toMv(item.id)">{{item.name}}</div>
+            <div class="artist" @click="toArtist(item.artistId)">{{item.artistName}}</div>
           </div>
         </div>
       </div>
@@ -169,6 +169,7 @@ export default {
   watch: {
     // 深度监听，可监听到对象、数组的变化
     queryInfo: {
+      deep: true, // 深度监听
       handler(val) {
         this.paginationForm = {
           total: 0,
@@ -177,8 +178,7 @@ export default {
         };
         this.queryInfo = val;
         this.fetchMvs();
-      },
-      deep: true // 深度监听
+      }
     }
   },
   methods: {
@@ -194,7 +194,7 @@ export default {
         }
       });
       this.mvList = res.data.data;
-      console.log(this.mvList);
+      // console.log(this.mvList);
       if (res.data.count) {
         this.paginationForm.total = res.data.count;
       }
@@ -213,6 +213,10 @@ export default {
       this.paginationForm.page = newPage;
       // this.queryInfo.offset
       this.fetchMvs();
+    },
+    // 跳转到歌手详情
+    toArtist(id) {
+      this.$router.push(`/artist?id=${id}`)
     }
   }
 };

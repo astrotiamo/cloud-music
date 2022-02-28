@@ -246,11 +246,11 @@ export default {
         this.searchHotList = [];
         // 获取推荐搜索信息
         const res = await this.$http.get("/search/hot");
-        // console.log(res);
         res.data.result.hots.forEach(item => {
           this.searchHotList.push({ value: item.first });
         });
         callback(this.searchHotList);
+        // console.log(res);
       } else {
         // 输入框中有内容，标识用户请求
         this.auth = "user";
@@ -261,22 +261,26 @@ export default {
         this.searchHot = [];
         // 获取推荐搜索信息
         // 有albums, artists, playlists, songs
-        const res = await this.$http.get(
-          `/search/suggest?keywords=${queryString}`
-        );
-        // console.log(res);
-        // 暂存搜索关键字
-        this.searchKeywords = queryString;
-        if (res.data.result.songs && res.data.result.songs.length > 0) {
-          res.data.result.songs.forEach(item => {
-            this.searchHot.push({
-              value: item.name + "—" + item.artists[0].name,
-              id: item.id,
-              type: "songs"
+        let that = this
+        clearTimeout(this.timer)
+        this.timer = setTimeout(async() => {
+          const res = await that.$http.get(
+            `/search/suggest?keywords=${queryString}`
+          );
+          // console.log(res);
+          // 暂存搜索关键字
+          that.searchKeywords = queryString;
+          if (res.data.result.songs && res.data.result.songs.length > 0) {
+            res.data.result.songs.forEach(item => {
+              that.searchHot.push({
+                value: item.name + "—" + item.artists[0].name,
+                id: item.id,
+                type: "songs"
+              });
             });
-          });
-        }
-        callback(this.searchHot);
+          }
+          callback(this.searchHot);
+        }, 500)
       }
     },
     // 点击推荐项重新渲染页面
@@ -342,12 +346,12 @@ export default {
     line-height: 46px;
     font-size: 16px;
     color: black;
-    &:hover {
-      color: #fff;
-      text-decoration-line: underline;
-      .userInfoBox {
-        display: block;
-      }
+  }
+  &:hover {
+    color: #fff;
+    text-decoration-line: underline;
+    .userInfoBox {
+      display: block;
     }
   }
 }

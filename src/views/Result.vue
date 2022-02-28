@@ -239,13 +239,13 @@ export default {
           offset: (this.queryInfo.page - 1) * limit
         }
       });
-      console.log(res.data);
+      // console.log(res.data);
       this.count =
         res.data.result.songCount ||
         res.data.result.playlistCount ||
         res.data.result.mvCount;
       this.searchResult = res.data.result;
-      console.log(this.searchResult);
+      // console.log(this.searchResult);
     },
     // 播放音乐
     playMusic(id, name, insert = true) {
@@ -287,7 +287,7 @@ export default {
 .result-container {
   .title-wrap {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     margin-bottom: 30px;
     .title {
       margin-right: 10px;

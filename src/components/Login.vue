@@ -8,6 +8,7 @@
       </h2>
       <!-- 二维码登录 -->
       <p v-show="qrShow" class="qrStatus">二维码不存在或已过期，请刷新</p>
+
       <div class="qr" v-if="toggle">
         <img :src="qr64" />
         <span class="iconfont icon-jiantou_zuoyouqiehuan" @click="togglePh"></span>
@@ -41,6 +42,7 @@
 
 <script>
 import { mapMutations } from "vuex";
+import Vue from 'vue'
 export default {
   name: "Login",
   props: ["ctrIsShow"],
@@ -145,9 +147,10 @@ export default {
       // console.log(result);
       this.qr64 = result.data.data.qrimg;
       // console.log(this.qr64);
-      // 设置定时器，定时检测二维码是否仍然有效，若已无效则删除计时器
+      // 设置定时器，定时检测二维码是否仍然有效
+      let that = this
       this.time = setInterval(async () => {
-        const result1 = await this.$http.get(
+        const result1 = await that.$http.get(
           `/login/qr/check?key=${unikey}&timerstamp=${Date.now()}`,
           {
             withCredentials: true
@@ -155,20 +158,20 @@ export default {
         );
         // console.log(result1);
         if (result1.data.code == 800) {
-          this.qrShow = true;
-          clearInterval(this.time)
+          that.qrShow = true;
         }
         if (result1.data.code == 803) {
-          const resultStatus = await this.$http.get(
+          const resultStatus = await that.$http.get(
             `/login/status?timerstamp=${Date.now()}`,
             {
               withCredentials: true
             }
           );
           // console.log(resultStatus);
-          this.loginSuccess(resultStatus.data);
+          that.loginSuccess(resultStatus.data);
+          clearInterval(that.time)
         }
-      }, 1000);
+      }, 30000);
     },
     // 获取登录信息
     async fetchLoginInfo() {

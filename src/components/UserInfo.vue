@@ -23,10 +23,10 @@ export default {
 .userInfoBox {
   position: absolute;
   z-index: 1000;
-  left: 80%;
-  top: 80px;
+  left: 75%;
+  top: 46px;
   width: 200px;
-  background-color: #fff;
+  background-color: rgb(245, 245, 245);
   box-shadow: 0 0 2px;
 }
 .userInfoBox .sanjiao {

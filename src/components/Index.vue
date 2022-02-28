@@ -89,11 +89,12 @@ export default {
     };
   },
   mounted() {
+    // 其他一般组件或路由组件在点击播放音乐按钮时调用this.$Bus.$emit("play")发送事件
     this.$Bus.$on("play", this.play);
     this.$Bus.$on("stop", this.stop);
   },
   computed: {
-    // 通过vuex获取audioInfo函数
+    // 通过vuex获取audioInfo
     ...mapState(["audioInfo"])
   },
   created() {

@@ -246,7 +246,7 @@ export default {
   margin-bottom: 40px;
   .items {
     height: 500px;
-    flex-direction: column;
+    // flex-direction: column;
     padding-left: 15px;
     .item {
       height: 100px;
@@ -340,6 +340,7 @@ export default {
             display: flex;
             align-items: center;
             margin-right: 5px;
+            cursor: default;
           }
         }
       }
